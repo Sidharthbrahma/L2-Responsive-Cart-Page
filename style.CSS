@@ -188,6 +188,7 @@ footer {
     width: 40px;
     height: auto;
     margin-bottom: 0.5rem;
+    display: block;
 }
 
 .feature-item p {
