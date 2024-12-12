@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marmeto Cart</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <header>
         <nav>
@@ -23,11 +21,22 @@
             </div>
         </nav>
     </header>
-
     <main>
         <section class="cart-section">
             <h1>Your Cart</h1>
+            <table class="table">
+                <thead>
+                    <tr class="">
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+               
+            </table>
             <div class="cart-container" id="cart-container">
+              
                 <!-- Cart items will be dynamically inserted here -->
             </div>
             <div class="cart-totals" id="cart-totals">
@@ -35,38 +44,32 @@
             </div>
         </section>
     </main>
-
-    <footer>
+    <div>
         <div class="footer-content">
             <div class="feature-icons">
                 <div class="feature-item">
-                    <img src="assets/quality-icon.png" alt="Quality Icon">
+                    <img src="assets/quality-icon.png.png" alt="Quality Icon">
                     <p>High Quality</p>
                     <p>crafted from top materials</p>
                 </div>
                 <div class="feature-item">
-                    <img src="assets/warranty-icon.png" alt="Warranty Icon">
+                    <img src="assets/warranty-icon.png.png" alt="Warranty Icon">
                     <p>Warranty Protection</p>
                     <p>Over 2 years</p>
                 </div>
                 <div class="feature-item">
-                    <img src="assets/shipping-icon.png" alt="Shipping Icon">
+                    <img src="assets/shipping-icon.png.png" alt="Shipping Icon">
                     <p>Free Shipping</p>
                     <p>Order over 150 ₹</p>
                 </div>
                 <div class="feature-item">
-                    <img src="assets/support-icon.png" alt="Support Icon">
+                    <img src="assets/support-icon.png.png" alt="Support Icon">
                     <p>24 / 7 Support</p>
                     <p>Dedicated support</p>
                 </div>
             </div>
         </div>
-    </footer>
-
-
-
+    </div>
     <script src="script.js"></script>
-
 </body>
-
 </html>

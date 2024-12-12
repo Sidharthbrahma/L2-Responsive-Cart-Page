@@ -46,9 +46,9 @@ class CartManager {
                 <img src="${item.image}" alt="${item.title}">
                 <div class="item-details">
                     <h3>${item.title}</h3>
-                    <p>Price: ${formatCurrency(item.presentment_price / 100)}</p>
+                    <p>${formatCurrency(item.presentment_price / 100)}</p>
                     <div class="quantity-container">
-                        <label for="quantity-${item.id}">Quantity:</label>
+                        <label for="quantity-${item.id}"></label>
                         <input 
                             type="number" 
                             id="quantity-${item.id}" 
@@ -62,10 +62,10 @@ class CartManager {
                             data-index="${index}"
                             onclick="cartManager.removeItem(event)"
                         >
-                            🗑️
+                            🗑
                         </span>
                     </div>
-                    <p class="subtotal">Subtotal: ${formatCurrency((item.line_price / 100))}</p>
+                    <p class="subtotal">${formatCurrency((item.line_price / 100))}</p>
                 </div>
             `;
             this.cartContainer.appendChild(cartItemElement);
