@@ -29,6 +29,7 @@ class CartManager {
         this.totalElement = document.getElementById('cart-total');
         this.cartCountElement = document.querySelector('.cart-count');
         this.removeModal = document.getElementById('remove-item-modal');
+        this.itemToRemove = null;
         this.initEventListeners();
     }
 
@@ -119,4 +120,98 @@ class CartManager {
         const itemId = cartItem.dataset.id;
         const newQuantity = parseInt(input.value);
 
-        const itemToUpdate = this.items.find(item => item.id === itemId);
+        const itemToUpdate = this.items.find(item => item.id === parseInt(itemId));
+        
+        if (itemToUpdate) {
+            // Update quantity
+            itemToUpdate.quantity = newQuantity;
+            
+            // Update item total in the UI
+            const itemTotalElement = cartItem.querySelector('.cart-item-total p');
+            itemTotalElement.textContent = formatCurrency(itemToUpdate.price * newQuantity);
+            
+            // Recalculate totals
+            this.calculateTotals();
+            
+            // Update local storage
+            saveCartToLocalStorage({ items: this.items });
+        }
+    }
+
+    calculateTotals() {
+        // Calculate subtotal
+        this.subtotal = this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+        
+        // Update subtotal and total in UI
+        this.subtotalElement.textContent = formatCurrency(this.subtotal);
+        this.totalElement.textContent = formatCurrency(this.subtotal);
+        
+        // Update cart count
+        const totalItems = this.items.reduce((count, item) => count + item.quantity, 0);
+        this.cartCountElement.textContent = totalItems;
+    }
+
+    attachRemoveEventListeners() {
+        const removeButtons = document.querySelectorAll('.remove-item');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const cartItem = e.target.closest('.cart-item');
+                this.itemToRemove = cartItem;
+                this.showRemoveModal();
+            });
+        });
+    }
+
+    showRemoveModal() {
+        this.removeModal.style.display = 'block';
+    }
+
+    closeRemoveModal() {
+        this.removeModal.style.display = 'none';
+        this.itemToRemove = null;
+    }
+
+    confirmRemoveItem() {
+        if (this.itemToRemove) {
+            const itemId = this.itemToRemove.dataset.id;
+            
+            // Remove item from items array
+            this.items = this.items.filter(item => item.id !== parseInt(itemId));
+            
+            // Remove item from DOM
+            this.itemToRemove.remove();
+            
+            // Recalculate totals
+            this.calculateTotals();
+            
+            // Update local storage
+            saveCartToLocalStorage({ items: this.items });
+            
+            // Close modal
+            this.closeRemoveModal();
+        }
+    }
+
+    proceedToCheckout() {
+        // Basic checkout implementation
+        if (this.items.length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+        
+        // You could redirect to a checkout page or open a checkout modal
+        alert('Proceeding to checkout...');
+        // Example: window.location.href = '/checkout';
+    }
+
+    // Initialize cart when script loads
+    init() {
+        this.fetchCartItems();
+    }
+}
+
+// Create and initialize cart manager when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const cartManager = new CartManager();
+    cartManager.init();
+});
